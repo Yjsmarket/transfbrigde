@@ -17,11 +17,10 @@
 
   const pad = n => String(n).padStart(2, "0");
   const isoDay = d => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  const inDays = n => { const d = new Date(); d.setDate(d.getDate() + n); return isoDay(d); };
   const state = {
     step: 0, type: "nl", dir: "to", trip: "enkel",
     pax: 2, bag: 2, hand: 2,
-    legs: { "nl-to": { city: "Amsterdam", addr: "", date: inDays(14), time: "06:30" } },
+    legs: { "nl-to": { city: "Amsterdam", addr: "", date: "", time: "" } },
     done: null
   };
 
@@ -179,6 +178,7 @@
   });
   /* De link wordt pas bij de klik gevuld, na de controle; de browser opent daarna de bijgewerkte href */
   $("#sendWa").addEventListener("click", e => {
+    if (!WA_NUMBER) { e.preventDefault(); return; }   // nog geen nummer: knop staat uit
     if (!validateContact()) { e.preventDefault(); return; }
     $("#sendWa").href = waUrl(message());
     setTimeout(finish, 50);
@@ -220,10 +220,10 @@
       ["on", "Je bericht staat klaar in WhatsApp", "Druk daar op verzenden. Dan komt je aanvraag bij ons binnen."],
       ["now", m === "spoed" ? "Wij zoeken een chauffeur" : m === "aanvraag" ? "Je krijgt een prijs op maat" : "Wij checken je rit", m === "spoed" ? "Is er een vrij? Dan krijg je een betaallink, 30 minuten geldig." : "Daarna sturen we je een betaallink in WhatsApp."],
       ["", "Betalen en klaar", "Na je betaling staat je rit vast en krijg je je boekingsnummer."],
-      ["", "Gegevens van je chauffeur", "24 uur voor vertrek krijg je zijn naam en nummer."]
+      ["", "Gegevens van je chauffeur", "24 uur voor vertrek krijg je de naam en het nummer van je chauffeur."]
     ];
     $("#doneCard").innerHTML = `<div class="done"><h3>Bijna klaar. Verstuur je bericht in WhatsApp.</h3>
-      <p class="card__hint" style="margin:0">Opent WhatsApp niet? App ons dan op <b>${WA_NUMBER ? "+" + WA_NUMBER : '<span class="todo">[nummer]</span>'}</b>.</p>
+      <p class="card__hint" style="margin:0">Opent WhatsApp niet? App ons dan op <b>${WA_NUMBER ? "+" + WA_NUMBER.replace(/^31(6)(\d{8})$/, "31 $1 $2") : '<span class="todo">[nummer]</span>'}</b>.</p>
       <ol class="track">${steps.map(([s, t, d]) => `<li class="${s === "on" ? "is-on" : s === "now" ? "is-now" : ""}"><i aria-hidden="true"></i><span><strong>${t}</strong><span>${d}</span></span></li>`).join("")}</ol>
       <button type="button" class="btn btn--ghost" id="again">Nog een rit boeken</button></div>`;
     $("#doneCard").hidden = false; $("#navSteps").hidden = true; document.querySelector(".steps").hidden = true;
@@ -237,7 +237,7 @@
   const PANEL = {
     nl: { t: "Van huis naar Schiphol, of terug", p: "Je chauffeur haalt je op op de tijd die jij kiest. Kom je aan op Schiphol? Geef je vluchtnummer door, dan staan we klaar.", legs: [["RIT", "Thuis → Schiphol"], ["RIT", "Schiphol → thuis"]], price: `<div><small>Amsterdam ↔ Schiphol, auto</small><strong>€55</strong></div><div><small>Amsterdam ↔ Schiphol, bus</small><strong>€65</strong></div>` },
     sr: { t: "Van Zanderij naar je bestemming", p: "Familie, hotel of eigen huis. Je chauffeur volgt je vlucht, dus je hoeft geen tijd te kiezen. Voor de terugweg kies je zelf hoe laat we je ophalen.", legs: [["RIT", "Zanderij → bestemming"], ["RIT", "Bestemming → Zanderij"]], price: `<div><small>Prijs per rit in Suriname</small><strong><span class="todo">[prijs SR]</span></strong></div>` },
-    combi: { t: "Nederland en Suriname in één boeking", p: "Van je voordeur hier tot je bestemming daar. Retour zijn dat maximaal vier ritten, met één boekingsnummer en één betaling.", legs: [["RIT 1", "Thuis → Schiphol"], ["RIT 2", "Zanderij → bestemming"], ["RIT 3", "Bestemming → Zanderij"], ["RIT 4", "Schiphol → thuis"]], price: `<div><small>Je betaalt per rit</small><strong>1 boeking</strong></div>` }
+    combi: { t: "Nederland en Suriname in één boeking", p: "Van je voordeur hier tot je bestemming daar. Retour zijn dat maximaal vier ritten, met één boekingsnummer en één betaling.", legs: [["RIT 1", "Thuis → Schiphol"], ["RIT 2", "Zanderij → bestemming"], ["RIT 3", "Bestemming → Zanderij"], ["RIT 4", "Schiphol → thuis"]], price: `<div><small>Prijs per rit</small><strong>1 betaling</strong></div>` }
   };
   function renderPanel(key) {
     const d = PANEL[key];
@@ -271,10 +271,17 @@
   new IntersectionObserver(([en]) => { inBook = en.isIntersecting; mbar.classList.toggle("is-hidden", !inBook || sumSeen); }).observe($("#boeken"));
   new IntersectionObserver(([en]) => { sumSeen = en.isIntersecting; mbar.classList.toggle("is-hidden", !inBook || sumSeen); }).observe($("#sum"));
 
-  /* ---------- Losse WhatsApp-knoppen ---------- */
+  /* ---------- WhatsApp-knoppen: werken pas als WA_NUMBER in config.js staat ---------- */
   document.querySelectorAll("[data-wa]").forEach(a => {
     if (WA_NUMBER) { a.href = waUrl(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; a.querySelector(".todo")?.remove(); }
+    else a.hidden = true;
   });
+  if (!WA_NUMBER) {
+    const send = $("#sendWa");
+    send.setAttribute("aria-disabled", "true");
+    send.removeAttribute("target");
+    send.innerHTML = "Boeken via WhatsApp kan binnenkort";
+  }
 
   renderPanel("nl");
   render(); showStep(0);

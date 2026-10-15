@@ -5,16 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>TransferBridge | Van je voordeur naar Schiphol en vanaf Zanderij in Suriname</title>
   <meta name="description" content="TransferBridge brengt je van huis naar Schiphol en haalt je op bij Zanderij (PBM) in Suriname. Alle ritten in één boeking, vaste prijs vooraf. Boek in vier stappen via WhatsApp.">
+  <!-- Tot de livegang niet indexeren. Bij livegang deze regel weghalen. -->
+  <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#49372D">
+  <!-- Vervangen door eigen domein -->
+  <link rel="canonical" href="https://yjsmarket.github.io/transfbrigde/">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:type" content="website">
   <meta property="og:title" content="TransferBridge | Schiphol en Zanderij in één boeking">
   <meta property="og:description" content="Van je voordeur in Nederland tot je deur in Suriname. Alle ritten in één boeking, met een vaste prijs vooraf.">
   <meta property="og:locale" content="nl_NL">
+  <!-- Vervangen door eigen domein -->
+  <meta property="og:url" content="https://yjsmarket.github.io/transfbrigde/">
+  <meta property="og:image" content="https://yjsmarket.github.io/transfbrigde/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -33,6 +43,62 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Mijn vlucht heeft vertraging. Wat nu?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Niets. Je chauffeur volgt je vlucht en komt dan ook later. Vertraging van dezelfde vlucht kost je niets extra. Wordt je vlucht geannuleerd of omgeboekt? Laat het ons weten, dan kijken we of de nieuwe tijd past."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Waar staat de chauffeur op Zanderij?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Je chauffeur wacht ongeveer 60 minuten na de landing op je. Die tijd is voor de paspoortcontrole en je koffers. 24 uur vooraf krijg je de naam en het nummer van je chauffeur, zodat je kunt bellen of appen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kan ik een rit boeken voor vandaag of morgen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja. Is je rit binnen 12 uur, dan vraag je eerst beschikbaarheid aan. Wij zoeken een chauffeur en sturen je een betaallink in WhatsApp. Die link is 30 minuten geldig. Pas na je betaling staat je rit vast. Is het meer dan 12 uur, dan boek je gewoon zoals altijd."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ik heb veel bagage. Past dat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vul je koffers in bij het boeken. Bij meer dan 2 grote koffers sturen we een bus. Past het niet in onze standaardregels? Dan krijg je een prijs op maat, zodat je nooit een verkeerde prijs betaalt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Hoe betaal ik?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Je verstuurt je reis via WhatsApp. Wij checken je rit en sturen je een betaallink terug. Na je betaling staat je rit vast en krijg je je boekingsnummer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kan ik voor mijn familie boeken?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja. Jij bent de hoofdboeker en betaalt. Zet in het opmerkingenveld wie er reist en hoe we diegene kunnen bereiken."
+      }
+    }
+  ]
+}
+  </script>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -50,7 +116,7 @@
   <header class="nav">
     <a class="brand" href="#top" aria-label="TransferBridge, naar boven"><svg aria-hidden="true"><use href="#logo"/></svg><span>Transfer<b>Bridge</b></span></a>
     <nav class="nav__links" aria-label="Hoofdnavigatie"><a href="#ritten">Ritten</a><a href="#hoe">Zo werkt het</a><a href="#annuleren">Annuleren</a><a href="#over">Over ons</a><a href="#vragen">Vragen</a></nav>
-    <a class="nav__cta" href="#boeken"><i aria-hidden="true"></i><span>Boek je rit</span><svg width="16" height="16" aria-hidden="true" class="nav__cta-ico"><use href="#arrow"/></svg></a>
+    <a class="nav__cta" href="#boeken" aria-label="Boek je rit"><i aria-hidden="true"></i><span>Boek je rit</span><svg width="16" height="16" aria-hidden="true" class="nav__cta-ico"><use href="#arrow"/></svg></a>
   </header>
 
   <!-- 1. Kop met reisbord -->
@@ -115,12 +181,12 @@
     </div>
     <div class="book">
       <form class="form" id="form" novalidate>
-        <div class="steps" role="list" aria-label="Stappen">
-          <button type="button" role="listitem" data-go="0" aria-current="step"><b>1</b><span>Reis</span></button>
-          <button type="button" role="listitem" data-go="1"><b>2</b><span>Ritten</span></button>
-          <button type="button" role="listitem" data-go="2"><b>3</b><span>Bagage</span></button>
-          <button type="button" role="listitem" data-go="3"><b>4</b><span>Gegevens</span></button>
-        </div>
+        <ol class="steps" aria-label="Stappen">
+          <li><button type="button" data-go="0" aria-current="step"><b aria-hidden="true">1</b><span class="steps__t">Reis</span></button></li>
+          <li><button type="button" data-go="1"><b aria-hidden="true">2</b><span class="steps__t">Ritten</span></button></li>
+          <li><button type="button" data-go="2"><b aria-hidden="true">3</b><span class="steps__t">Bagage</span></button></li>
+          <li><button type="button" data-go="3"><b aria-hidden="true">4</b><span class="steps__t">Gegevens</span></button></li>
+        </ol>
 
         <div class="card" data-step="0">
           <h3>Wat voor reis is het?</h3>
@@ -158,7 +224,7 @@
             <div class="f"><label for="c-tel">Telefoon (met landcode)</label><input id="c-tel" type="tel" autocomplete="tel" inputmode="tel" placeholder="+31 6 ..."><span class="f__err"></span></div>
             <div class="f f--full"><label for="c-note">Opmerkingen (optioneel)</label><textarea id="c-note" placeholder="Bijvoorbeeld een kinderzitje of rolstoel"></textarea></div>
           </div>
-          <label class="check"><input type="checkbox" id="c-terms"><span>Ik ga akkoord met de voorwaarden en de privacyverklaring. <span class="todo">[links naar voorwaarden]</span></span></label>
+          <label class="check"><input type="checkbox" id="c-terms"><span>Ik ga akkoord met de <a href="voorwaarden.html" target="_blank" rel="noopener">voorwaarden</a> en de <a href="privacy.html" target="_blank" rel="noopener">privacyverklaring</a>.</span></label>
           <span class="f__err" id="termsErr"></span>
           <div class="note" id="modeNote"><svg aria-hidden="true"><use href="#info"/></svg><span></span></div>
         </div>
@@ -235,7 +301,7 @@
       </article>
       <article class="tile tile--e">
         <h3>Je gegevens blijven van jou</h3>
-        <p>Je chauffeur ziet eerst alleen de rit. Je naam en nummer deelt hij pas 24 uur voor vertrek.</p>
+        <p>Je chauffeur ziet eerst alleen de rit. Je naam en nummer krijgt je chauffeur pas 24 uur voor vertrek.</p>
       </article>
     </div>
   </section>
@@ -265,9 +331,9 @@
       </div>
       <ol class="wait__steps" id="waitSteps">
         <li><span class="wait__t">Landing</span><h3>Je chauffeur volgt je vlucht</h3><p>Landt je vlucht later, dan komt je chauffeur ook later. Dat kost je niets.</p></li>
-        <li><span class="wait__t">+60 min</span><h3>Je chauffeur wacht in de aankomsthal</h3><p>Je hebt zijn naam en nummer al, 24 uur van tevoren gekregen.</p></li>
-        <li><span class="wait__t">Nog niet buiten?</span><h3>Je chauffeur belt of appt je</h3><p>Hou je telefoon aan na de landing. Duurt het langer, laat het hem dan even weten.</p></li>
-        <li><span class="wait__t">Geen contact</span><h3>Hij maakt foto's en belt ons</h3><p>Als bewijs dat hij er was. Alleen TransferBridge beslist of het een no-show is. Dat gebeurt nooit automatisch.</p></li>
+        <li><span class="wait__t">+60 min</span><h3>Je chauffeur wacht in de aankomsthal</h3><p>De naam en het nummer van je chauffeur heb je al, 24 uur van tevoren gekregen.</p></li>
+        <li><span class="wait__t">Nog niet buiten?</span><h3>Je chauffeur belt of appt je</h3><p>Hou je telefoon aan na de landing. Duurt het langer, laat het je chauffeur dan even weten.</p></li>
+        <li><span class="wait__t">Geen contact</span><h3>Je chauffeur maakt foto's en belt ons</h3><p>Als bewijs dat je chauffeur er was. Alleen TransferBridge beslist of het een no-show is. Dat gebeurt nooit automatisch.</p></li>
       </ol>
       <p class="wait__foot">Wordt je vlucht geannuleerd of omgeboekt? Laat het ons zo snel mogelijk weten, dan kijken we of de nieuwe tijd past. <span class="todo">[wat kost een no-show?]</span> <span class="todo">[wachtregels Schiphol]</span></p>
     </div>
@@ -299,9 +365,9 @@
       <h2 id="t-faq">Wat mensen ons <span class="hl">vaak vragen.</span></h2>
     </div>
     <div class="faq">
-      <details><summary>Mijn vlucht heeft vertraging. Wat nu?</summary><p>Niets. Je chauffeur volgt je vlucht en past zijn tijd aan. Vertraging van dezelfde vlucht kost je niets extra. Wordt je vlucht geannuleerd of omgeboekt? Laat het ons weten, dan kijken we of de nieuwe tijd past.</p></details>
-      <details><summary>Waar staat de chauffeur op Zanderij?</summary><p>Je chauffeur wacht ongeveer 60 minuten na de landing op je. Die tijd is voor de paspoortcontrole en je koffers. 24 uur vooraf krijg je zijn naam en nummer, zodat je hem kunt bellen of appen. <span class="todo">[exacte ontmoetingsplek]</span></p></details>
-      <details><summary>Kan ik een rit boeken voor vandaag of morgen?</summary><p>Ja. Binnen 12 uur voor de rit vraag je eerst beschikbaarheid aan. Wij zoeken een chauffeur en sturen je een betaallink in WhatsApp. Die link is 30 minuten geldig. Pas na je betaling staat je rit vast.</p></details>
+      <details><summary>Mijn vlucht heeft vertraging. Wat nu?</summary><p>Niets. Je chauffeur volgt je vlucht en komt dan ook later. Vertraging van dezelfde vlucht kost je niets extra. Wordt je vlucht geannuleerd of omgeboekt? Laat het ons weten, dan kijken we of de nieuwe tijd past.</p></details>
+      <details><summary>Waar staat de chauffeur op Zanderij?</summary><p>Je chauffeur wacht ongeveer 60 minuten na de landing op je. Die tijd is voor de paspoortcontrole en je koffers. 24 uur vooraf krijg je de naam en het nummer van je chauffeur, zodat je kunt bellen of appen. <span class="todo">[exacte ontmoetingsplek]</span></p></details>
+      <details><summary>Kan ik een rit boeken voor vandaag of morgen?</summary><p>Ja. Is je rit binnen 12 uur, dan vraag je eerst beschikbaarheid aan. Wij zoeken een chauffeur en sturen je een betaallink in WhatsApp. Die link is 30 minuten geldig. Pas na je betaling staat je rit vast. Is het meer dan 12 uur, dan boek je gewoon zoals altijd.</p></details>
       <details><summary>Ik heb veel bagage. Past dat?</summary><p>Vul je koffers in bij het boeken. Bij meer dan 2 grote koffers sturen we een bus. Past het niet in onze standaardregels? Dan krijg je een prijs op maat, zodat je nooit een verkeerde prijs betaalt.</p></details>
       <details><summary>Hoe betaal ik?</summary><p>Je verstuurt je reis via WhatsApp. Wij checken je rit en sturen je een betaallink terug. Na je betaling staat je rit vast en krijg je je boekingsnummer.</p></details>
       <details><summary>Kan ik voor mijn familie boeken?</summary><p>Ja. Jij bent de hoofdboeker en betaalt. Zet in het opmerkingenveld wie er reist en hoe we diegene kunnen bereiken.</p></details>
@@ -323,13 +389,13 @@
 
   <footer class="wrap foot">
     <span>© 2026 TransferBridge · Nederland en Suriname <span class="todo">[KvK]</span></span>
-    <nav aria-label="Voettekst"><a href="#">Voorwaarden</a><a href="#">Privacy</a><a href="#">Contact</a></nav>
+    <nav aria-label="Voettekst"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav>
   </footer>
 </div>
 
 <div class="mbar is-hidden" id="mbar" aria-live="polite"><div><small id="mLabel">Jouw boeking</small><strong id="mTotal">€0</strong></div><a href="#sum">Bekijk</a></div>
 
-<script src="js/config.js"></script>
-<script src="js/app.js"></script>
+<script src="js/config.js?v=2"></script>
+<script src="js/app.js?v=2"></script>
 </body>
 </html>

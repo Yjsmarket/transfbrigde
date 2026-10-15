@@ -9,5 +9,5 @@ window.TB_CONFIG = {
   MAX_PAX: 8,                        // [capaciteit bus nog te bevestigen]
   MAX_BAGS: 8,                       // [capaciteit bus nog te bevestigen]
   TZ: { NL: "Europe/Amsterdam", SR: "America/Paramaribo" },
-  WA_NUMBER: ""                      // [WhatsApp-nummer TransferBridge, bijv. 31612345678]
+  WA_NUMBER: "31686005731"           // WhatsApp-nummer TransferBridge (+31 6 86005731)
 };
