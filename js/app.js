@@ -95,7 +95,7 @@
   function renderLegs() {
     $("#legs").innerHTML = legKinds().map((k, i) => {
       const def = LEG[k], L = legData(k);
-      const note = k === "sr-from" ? `<div class="note"><svg aria-hidden="true"><use href="#plane"/></svg><span>Je kiest hier geen tijd. Je chauffeur volgt je vlucht en wacht ongeveer 60 minuten na de landing op je.</span></div>` : "";
+      const note = k === "sr-from" ? `<div class="note"><svg aria-hidden="true"><use href="#plane"/></svg><span>Je kiest hier geen tijd. Je chauffeur volgt je vlucht en wacht ongeveer 60 minuten na de landing op je. <a class="note__link" href="#wachten">Zo werkt het wachten</a></span></div>` : "";
       return `<div class="leg" data-leg="${k}"><div class="leg__head"><span class="leg__n">RIT ${i + 1}</span><h4>${def.title}</h4><span class="leg__flag">${def.country === "NL" ? "NEDERLAND · NL-TIJD" : "SURINAME · SR-TIJD"}</span></div>
         <div class="grid2">${def.fields.map(f => FIELD[f](k, L)).join("")}</div>${note}</div>`;
     }).join("");
@@ -231,30 +231,10 @@
     $("#again").addEventListener("click", () => { state.done = null; $("#doneCard").hidden = true; $("#navSteps").hidden = false; document.querySelector(".steps").hidden = false; showStep(0); });
   }
 
-  function render() { renderTrip(); renderLegs(); renderVeh(); renderSum(); }
+  /* Het blok "Aankomst op Zanderij" hoort alleen bij reizen met een Surinaamse rit */
+  function renderWait() { $("#wachten").hidden = state.type === "nl"; }
 
-  /* ---------- Keuzelijst + paneel ---------- */
-  const PANEL = {
-    nl: { t: "Van huis naar Schiphol, of terug", p: "Je chauffeur haalt je op op de tijd die jij kiest. Kom je aan op Schiphol? Geef je vluchtnummer door, dan staan we klaar.", legs: [["RIT", "Thuis → Schiphol"], ["RIT", "Schiphol → thuis"]], price: `<div><small>Amsterdam ↔ Schiphol, auto</small><strong>€55</strong></div><div><small>Amsterdam ↔ Schiphol, bus</small><strong>€65</strong></div>` },
-    sr: { t: "Van Zanderij naar je bestemming", p: "Familie, hotel of eigen huis. Je chauffeur volgt je vlucht, dus je hoeft geen tijd te kiezen. Voor de terugweg kies je zelf hoe laat we je ophalen.", legs: [["RIT", "Zanderij → bestemming"], ["RIT", "Bestemming → Zanderij"]], price: `<div><small>Prijs per rit in Suriname</small><strong><span class="todo">[prijs SR]</span></strong></div>` },
-    combi: { t: "Nederland en Suriname in één boeking", p: "Van je voordeur hier tot je bestemming daar. Retour zijn dat maximaal vier ritten, met één boekingsnummer en één betaling.", legs: [["RIT 1", "Thuis → Schiphol"], ["RIT 2", "Zanderij → bestemming"], ["RIT 3", "Bestemming → Zanderij"], ["RIT 4", "Schiphol → thuis"]], price: `<div><small>Prijs per rit</small><strong>1 betaling</strong></div>` }
-  };
-  function renderPanel(key) {
-    const d = PANEL[key];
-    document.querySelectorAll(".pick__opt").forEach(b => b.setAttribute("aria-selected", String(b.dataset.pick === key)));
-    $("#pickPanel").setAttribute("aria-labelledby", "tab-" + key);
-    $("#pickPanel").innerHTML = `<div class="panel__fade" style="display:grid;gap:22px"><span class="label">${key === "nl" ? "Nederland" : key === "sr" ? "Suriname" : "Allebei"}</span><h3>${d.t}</h3><p>${d.p}</p>
-      <ul class="panel__legs">${d.legs.map(([n, t]) => `<li><b>${n}</b>${t}</li>`).join("")}</ul>
-      <div class="panel__price">${d.price}</div>
-      <a class="btn btn--orange" href="#boeken" data-book="${key}">Boek deze rit <span class="btn__dot"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a></div>`;
-  }
-  $("#pickList").addEventListener("click", e => { const b = e.target.closest("[data-pick]"); if (b) renderPanel(b.dataset.pick); });
-  $("#pickList").addEventListener("keydown", e => {
-    if (!["ArrowDown", "ArrowUp"].includes(e.key)) return;
-    const tabs = [...document.querySelectorAll(".pick__opt")], i = tabs.indexOf(document.activeElement);
-    const n = tabs[(i + (e.key === "ArrowDown" ? 1 : tabs.length - 1)) % tabs.length]; n.focus(); renderPanel(n.dataset.pick); e.preventDefault();
-  });
-  $("#pickPanel").addEventListener("click", e => { const b = e.target.closest("[data-book]"); if (b) { setType(b.dataset.book); showStep(0); } });
+  function render() { renderTrip(); renderLegs(); renderVeh(); renderSum(); renderWait(); }
 
   /* ---------- Tijdlijn licht op bij scrollen ---------- */
   const items = [...document.querySelectorAll("#tl li")];
@@ -283,6 +263,5 @@
     send.innerHTML = "Boeken via WhatsApp kan binnenkort";
   }
 
-  renderPanel("nl");
   render(); showStep(0);
 })();

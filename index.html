@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -115,11 +115,11 @@
 <div class="page">
   <header class="nav">
     <a class="brand" href="#top" aria-label="TransferBridge, naar boven"><svg aria-hidden="true"><use href="#logo"/></svg><span>Transfer<b>Bridge</b></span></a>
-    <nav class="nav__links" aria-label="Hoofdnavigatie"><a href="#ritten">Ritten</a><a href="#hoe">Zo werkt het</a><a href="#annuleren">Annuleren</a><a href="#over">Over ons</a><a href="#vragen">Vragen</a></nav>
+    <nav class="nav__links" aria-label="Hoofdnavigatie"><a href="#boeken">Boeken</a><a href="#hoe">Zo werkt het</a><a href="#annuleren">Annuleren</a><a href="#vragen">Vragen</a><a href="over-ons.html">Over ons</a></nav>
     <a class="nav__cta" href="#boeken" aria-label="Boek je rit"><i aria-hidden="true"></i><span>Boek je rit</span><svg width="16" height="16" aria-hidden="true" class="nav__cta-ico"><use href="#arrow"/></svg></a>
   </header>
 
-  <!-- 1. Kop met reisbord -->
+  <!-- Kop met reisbord -->
   <section class="hero dark" id="top" aria-labelledby="t-hero">
     <div class="hero__arc" aria-hidden="true"></div>
     <div class="wrap hero__grid">
@@ -129,7 +129,7 @@
         <p class="hero__sub">Wij brengen je naar Schiphol en halen je op bij Zanderij. Alle ritten in één boeking, met een vaste prijs vooraf.</p>
         <div class="hero__actions">
           <a class="btn btn--orange" href="#boeken">Boek je rit <span class="btn__dot"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
-          <a class="btn btn--line" href="#ritten">Bekijk de ritten</a>
+          <a class="btn btn--line" href="#hoe">Zo werkt het</a>
         </div>
         <div class="hero__facts"><span>Chauffeur volgt je vlucht</span><span>Auto of bus, wij kiezen</span><span>Betaallink via WhatsApp</span></div>
       </div>
@@ -155,24 +155,7 @@
     </div>
   </section>
 
-  <!-- 2. Keuzelijst + donker paneel -->
-  <section class="section wrap" id="ritten" aria-labelledby="t-rit">
-    <div class="head">
-      <span class="label">Onze ritten</span>
-      <h2 id="t-rit">Waar moet je <span class="hl">naartoe?</span></h2>
-      <p class="lead">Alleen in Nederland, alleen in Suriname, of allebei in één keer geregeld.</p>
-    </div>
-    <div class="pick">
-      <div class="pick__list" role="tablist" aria-label="Soort rit" id="pickList">
-        <button class="pick__opt" role="tab" id="tab-nl" aria-controls="pickPanel" aria-selected="true" data-pick="nl"><span class="pick__ico">AMS</span><span><strong>Nederland</strong><span>Van of naar Schiphol</span></span><svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <button class="pick__opt" role="tab" id="tab-sr" aria-controls="pickPanel" aria-selected="false" data-pick="sr"><span class="pick__ico">PBM</span><span><strong>Suriname</strong><span>Van of naar Zanderij</span></span><svg aria-hidden="true"><use href="#chev"/></svg></button>
-        <button class="pick__opt" role="tab" id="tab-combi" aria-controls="pickPanel" aria-selected="false" data-pick="combi"><span class="pick__ico">2×</span><span><strong>Allebei</strong><span>Nederland en Suriname in één boeking</span></span><svg aria-hidden="true"><use href="#chev"/></svg></button>
-      </div>
-      <div class="panel dark" role="tabpanel" id="pickPanel" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <!-- 3. Boeken -->
+  <!-- Boeken -->
   <section class="section wrap" id="boeken" aria-labelledby="t-boek">
     <div class="head">
       <span class="label">Boeken</span>
@@ -249,7 +232,25 @@
     </div>
   </section>
 
-  <!-- 4. Lichtende tijdlijn -->
+  <!-- Aankomst op Zanderij: alleen zichtbaar als in het formulier Suriname of Allebei gekozen is (app.js) -->
+  <section class="section wrap" id="wachten" aria-labelledby="t-wacht" hidden>
+    <div class="wait dark">
+      <div class="wait__head">
+        <span class="label">Aankomst op Zanderij</span>
+        <h2 id="t-wacht">Zo lang wacht je chauffeur. <span class="hl">En daarna?</span></h2>
+        <p>Je chauffeur rekent op ongeveer 60 minuten na de landing. Die tijd is voor de paspoortcontrole en je koffers. Daarna gaat het zo:</p>
+      </div>
+      <ol class="wait__steps" id="waitSteps">
+        <li><span class="wait__t">Landing</span><h3>Je chauffeur volgt je vlucht</h3><p>Landt je vlucht later, dan komt je chauffeur ook later. Dat kost je niets.</p></li>
+        <li><span class="wait__t">+60 min</span><h3>Je chauffeur wacht in de aankomsthal</h3><p>De naam en het nummer van je chauffeur heb je al, 24 uur van tevoren gekregen.</p></li>
+        <li><span class="wait__t">Nog niet buiten?</span><h3>Je chauffeur belt of appt je</h3><p>Hou je telefoon aan na de landing. Duurt het langer, laat het je chauffeur dan even weten.</p></li>
+        <li><span class="wait__t">Geen contact</span><h3>Je chauffeur maakt foto's en belt ons</h3><p>Als bewijs dat je chauffeur er was. Alleen TransferBridge beslist of het een no-show is. Dat gebeurt nooit automatisch.</p></li>
+      </ol>
+      <p class="wait__foot">Wordt je vlucht geannuleerd of omgeboekt? Laat het ons zo snel mogelijk weten, dan kijken we of de nieuwe tijd past. <span class="todo">[wat kost een no-show?]</span> <span class="todo">[wachtregels Schiphol]</span></p>
+    </div>
+  </section>
+
+  <!-- Lichtende tijdlijn -->
   <section class="section wrap" id="hoe" aria-labelledby="t-hoe">
     <div class="flow">
       <div class="flow__head">
@@ -268,7 +269,7 @@
     </div>
   </section>
 
-  <!-- 5. Bento -->
+  <!-- Bento -->
   <section class="section wrap" aria-labelledby="t-bento">
     <div class="head">
       <span class="label">Goed om te weten</span>
@@ -306,7 +307,7 @@
     </div>
   </section>
 
-  <!-- 6. Annuleren -->
+  <!-- Annuleren -->
   <section class="section wrap" id="annuleren" aria-labelledby="t-ann">
     <div class="head">
       <span class="label">Annuleren en wijzigen</span>
@@ -321,44 +322,7 @@
     <div class="cancel__note"><span>Wijzigen tot 24 uur vooraf is gratis, als er plek is. Alleen een prijsverschil verrekenen we.</span><span>Binnen 24 uur wijzigen kan alleen in overleg met ons.</span><span class="todo">[voorwaarden nog juridisch checken]</span></div>
   </section>
 
-  <!-- 7. Wachten en no-show -->
-  <section class="section wrap" id="wachten" aria-labelledby="t-wacht">
-    <div class="wait dark">
-      <div class="wait__head">
-        <span class="label">Aankomst op Zanderij</span>
-        <h2 id="t-wacht">Zo lang wacht je chauffeur. <span class="hl">En daarna?</span></h2>
-        <p>Je chauffeur rekent op ongeveer 60 minuten na de landing. Die tijd is voor de paspoortcontrole en je koffers. Daarna gaat het zo:</p>
-      </div>
-      <ol class="wait__steps" id="waitSteps">
-        <li><span class="wait__t">Landing</span><h3>Je chauffeur volgt je vlucht</h3><p>Landt je vlucht later, dan komt je chauffeur ook later. Dat kost je niets.</p></li>
-        <li><span class="wait__t">+60 min</span><h3>Je chauffeur wacht in de aankomsthal</h3><p>De naam en het nummer van je chauffeur heb je al, 24 uur van tevoren gekregen.</p></li>
-        <li><span class="wait__t">Nog niet buiten?</span><h3>Je chauffeur belt of appt je</h3><p>Hou je telefoon aan na de landing. Duurt het langer, laat het je chauffeur dan even weten.</p></li>
-        <li><span class="wait__t">Geen contact</span><h3>Je chauffeur maakt foto's en belt ons</h3><p>Als bewijs dat je chauffeur er was. Alleen TransferBridge beslist of het een no-show is. Dat gebeurt nooit automatisch.</p></li>
-      </ol>
-      <p class="wait__foot">Wordt je vlucht geannuleerd of omgeboekt? Laat het ons zo snel mogelijk weten, dan kijken we of de nieuwe tijd past. <span class="todo">[wat kost een no-show?]</span> <span class="todo">[wachtregels Schiphol]</span></p>
-    </div>
-  </section>
-
-  <!-- 8. Over ons -->
-  <section class="section wrap" id="over" aria-labelledby="t-over">
-    <div class="about">
-      <div class="about__body">
-        <span class="label">Over ons</span>
-        <h2 id="t-over">De brug tussen <span class="hl">hier en daar.</span></h2>
-        <p class="lead">Wie naar Suriname reist, regelt het vervoer vaak twee keer: hier naar Schiphol en daar vanaf Zanderij. Met losse afspraken, in twee tijdzones. TransferBridge regelt beide kanten in één keer.</p>
-        <p class="about__p">We plannen elke rit zelf en kiezen zelf de chauffeur, in Nederland en in Suriname. Je hebt één aanspreekpunt, van je voordeur tot je bestemming. <span class="todo">[eigen verhaal: wie zijn jullie en waarom begonnen]</span></p>
-        <a class="btn btn--brown" href="#boeken">Plan je reis <span class="btn__dot"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a>
-      </div>
-      <div class="about__bridge" aria-label="Nederland en Suriname, verbonden door TransferBridge">
-        <div class="side"><span class="side__code">NL</span><h3>Nederland</h3><ul><li>Van en naar Schiphol</li><li>Jij kiest de ophaaltijd</li><li>Nederlandse tijd</li></ul></div>
-        <svg class="arc" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M4 56 C 50 2, 150 2, 196 56" fill="none" stroke="#E96C22" stroke-width="2.5" stroke-dasharray="6 6"/></svg>
-        <div class="side side--sr"><span class="side__code">SR</span><h3>Suriname</h3><ul><li>Van en naar Zanderij</li><li>Op je landingstijd</li><li>Surinaamse tijd</li></ul></div>
-        <p class="about__photo"><span class="todo">[foto team of chauffeur]</span></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 9. Vragen -->
+  <!-- Vragen -->
   <section class="section wrap" id="vragen" aria-labelledby="t-faq">
     <div class="head">
       <span class="label">Vragen</span>
@@ -374,7 +338,7 @@
     </div>
   </section>
 
-  <!-- 10. Slot -->
+  <!-- Slot -->
   <section class="section wrap" aria-labelledby="t-end">
     <div class="end dark">
       <span class="label">TransferBridge</span>
@@ -389,13 +353,13 @@
 
   <footer class="wrap foot">
     <span>© 2026 TransferBridge · Nederland en Suriname <span class="todo">[KvK]</span></span>
-    <nav aria-label="Voettekst"><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav>
+    <nav aria-label="Voettekst"><a href="over-ons.html">Over ons</a><a href="voorwaarden.html">Voorwaarden</a><a href="privacy.html">Privacy</a><a href="contact.html">Contact</a></nav>
   </footer>
 </div>
 
 <div class="mbar is-hidden" id="mbar" aria-live="polite"><div><small id="mLabel">Jouw boeking</small><strong id="mTotal">€0</strong></div><a href="#sum">Bekijk</a></div>
 
-<script src="js/config.js?v=2"></script>
-<script src="js/app.js?v=2"></script>
+<script src="js/config.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>
