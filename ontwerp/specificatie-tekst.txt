@@ -1,0 +1,175 @@
+PAGES 5
+=== PAGE 1 ===
+TransferBridge
+Technische specificatie voor de websitebouwer
+Versie 1.0 | Oktober 2026 | Extern deelbaar
+Doel van dit document. Beschrijven welke functionaliteiten de website en het boekingssysteem moeten
+ondersteunen. De bouwer krijgt vrijheid in visueel ontwerp en technische implementatie, mits de
+beschreven processen werken. Commerciële inkoopafspraken, marges en interne groeiplannen vallen
+buiten dit document.
+1. Scope van de eerste versie
+• Responsive, Nederlandstalige website met duidelijk boekingsformulier en prijsweergave.
+• Boekingen voor Nederland, Suriname of een combinatie van beide; enkele reis en retour.
+• Online betalingen via Mollie en betaalverzoeken voor handmatig goedgekeurde spoedaanvragen.
+• Beveiligd beheerdersdashboard voor boekingen, ritten, tarieven, vervoerders en wijzigingen.
+• E-mailnotificaties en handmatig bruikbare WhatsApp-berichten voor de operationele afhandeling.
+Niet vereist bij de eerste oplevering: automatische dispatch, chauffeursapp, vervoerdersportaal,
+betaalde vluchttracking, reisbureauportaal of AI-integraties. De bouwer mag hiervoor wel een
+uitbreidbare technische basis adviseren.
+2. Huisstijl en gebruikerservaring
+Kleurenpalet: oranje #E96C22, crème #FFF0D9, donkerbruin #49372D. Logo, typografie,
+paginavormgeving en gebruikersflow worden door de bouwer voorgesteld. Mobiel gebruik,
+leesbaarheid, snelle laadtijd en een eenvoudig afrekenproces zijn essentieel.
+3. Boekingsproducten en ritstructuur
+Boekingstype Ondersteunde mogelijkheden
+Nederland Ophaal- of afleverrit rond Schiphol; enkele reis of retour.
+Suriname Zanderij Airport en bestemming in Suriname; enkele reis of retour.
+Gecombineerd Nederlandse en Surinaamse ritten binnen één boeking; maximaal vier ritdelen bij een
+retourreis.
+Eén klantboeking heeft één referentienummer en bevat één of meerdere afzonderlijke ritdelen. Per
+ritdeel worden datum/tijd, land, adressen, passagiers, bagage, vluchtgegevens, prijs, vervoerder en
+ritstatus opgeslagen. Ritdelen kunnen afzonderlijk worden gewijzigd of geannuleerd.
+4. Boekingsformulier
+• Keuze: Nederland, Suriname of gecombineerd; enkele reis of retour.
+• Per ritdeel: vertrekadres, bestemming, datum en ophaaltijd waar van toepassing.
+• Vluchtnummer en aankomstdatum bij luchthavenophaalritten.
+• Aantal passagiers, grote koffers en handbagage; opmerkingenveld.
+TRANSFERBRIDGE | Technische specificatie | Extern deelbaar Pagina 1
+=== PAGE 2 ===
+• Contactgegevens hoofdboeker: naam, e-mail en telefoonnummer.
+• Duidelijke prijsopbouw per ritdeel en totaalprijs vóór betaling.
+• Validatie van verplichte velden, tijdzones en logische reisvolgorde; voorkom onmogelijke
+combinaties.
+Bij Zanderij → bestemming kiest de klant geen eigen ophaaltijd: het systeem gebruikt het
+vluchtnummer; de chauffeur stemt af op de werkelijke landingstijd. Bij bestemming → Zanderij kiest de
+klant wel een ophaaltijd. Voor Nederlandse ritten blijft de gewenste ophaaltijd door de klant in te vullen.
+5. Voertuigkeuze en tarieven
+De klant selecteert geen auto of bus. Het systeem bepaalt de voertuigcategorie op basis van
+passagiersaantal en bagage. Voorlopige regels: auto tot vier passagiers als bagage past; meer dan
+twee grote koffers betekent bus; vanaf vijf passagiers bus. Bij overschrijding van ingestelde capaciteit
+of ontbrekende prijs: aanvraag voor handmatige beoordeling in plaats van een onjuiste automatische
+offerte.
+• Tariefbeheer per land, traject, richting, voertuigcategorie en/of passagiersaantal.
+• Nederlandse basisprijzen voor Amsterdam ↔ Schiphol: auto €55, bus €65; beide richtingen.
+• Surinaamse verkoopprijzen en bagageregels worden vóór livegang door de opdrachtgever ingevuld.
+• Geen automatische pakket- of retourkorting in versie 1.
+• Prijzen en toegepaste regels vastleggen als momentopname bij de boeking; latere tariefwijzigingen
+mogen bestaande boekingen niet aanpassen.
+6. Spoedaanvragen en betaling
+Bij een aanvraag minder dan 12 uur vóór de rit vindt niet direct een betaling plaats. De aanvraag krijgt
+de status Wacht op beschikbaarheid. De beheerder controleert beschikbaarheid en stuurt daarna een
+Mollie-betaallink. Deze link is 30 minuten geldig; na verstrijken vervalt de reserveringsoptie. Zonder
+succesvolle betaling is er geen bevestigde rit.
+• Nederland: 15% spoedtoeslag op uitsluitend het betreffende Nederlandse ritdeel.
+• Suriname: spoedtoeslag moet configureerbaar zijn; waarde wordt later vastgesteld.
+• Aanvragen 12–24 uur vóór vertrek zichtbaar markeren voor extra controle.
+• Reguliere boekingen: Mollie-checkout, met server-side betalingsverificatie/webhooks en veilige
+foutafhandeling.
+• Maak onderscheid tussen betalingsbevestiging en vervoersbevestiging na acceptatie door
+vervoerder.
+7. Zanderij: vluchtvertraging en no-show
+Bij Zanderij-aankomst is het vluchtnummer leidend. De chauffeur volgt de vlucht en past zijn planning
+aan. Richttijd voor ontmoeting: 60 minuten na de daadwerkelijke landing. Deze 60 minuten zijn voor
+controles en bagage, niet automatisch een extra gratis wachttijd daarna.
+Is de klant na 60 minuten nog niet verschenen, dan neemt de chauffeur contact op met de klant, maakt
+foto’s als bewijs van aanwezigheid en neemt contact op met TransferBridge. Alleen TransferBridge mag
+een no-show goedkeuren. Het systeem mag geen automatische no-show toekennen op basis van
+tijdsverloop.
+Vluchtvertraging op dezelfde vlucht leidt niet automatisch tot wijzigingskosten. Vluchtannulering of
+omboeking vereist hercontrole van beschikbaarheid.
+TRANSFERBRIDGE | Technische specificatie | Extern deelbaar Pagina 2
+=== PAGE 3 ===
+8. Annuleringen en wijzigingen
+Moment annulering per ritdeel Voorlopige terugbetaling
+Meer dan 48 uur vóór ophaaltijd 100%
+24 tot en met 48 uur vóór ophaaltijd 50%
+Minder dan 24 uur vóór ophaaltijd 0%
+Annulering per ritdeel, niet automatisch de hele gecombineerde boeking. Berekening zichtbaar in het
+dashboard; daadwerkelijke refund pas na handmatige goedkeuring. Voorwaarden worden vóór livegang
+juridisch gecontroleerd.
+• Wijzigen meer dan 24 uur vooraf: zonder wijzigingsvergoeding indien beschikbaar; prijsverschil wel
+verrekenen.
+• Wijzigen minder dan 24 uur vooraf: alleen na goedkeuring TransferBridge.
+• Bewaar wijzigingshistorie, tijdstippen en toegepaste bedragen.
+9. Toewijzing en communicatie
+Nieuwe boekingen komen eerst binnen bij TransferBridge via dashboard en e-mail. De beheerder wijst
+een vervoerder handmatig toe en kan een ritopdracht via e-mail of WhatsApp voorbereiden. In versie 1
+is automatisch verzenden naar vervoerders niet noodzakelijk.
+• Na acceptatie krijgt de chauffeur ritinformatie voor planning, aanvankelijk zonder
+naam/contactgegevens van de klant.
+• Binnen 24 uur vóór de rit worden de noodzakelijke klant- en chauffeurcontactgegevens uitgewisseld;
+bij late boekingen direct na acceptatie.
+• Leg vast wanneer en aan wie contactgegevens zijn gedeeld. Beperk toegang tot noodzakelijke
+gegevens.
+• De vervoerder ziet alleen zijn operationele ritinformatie en overeengekomen vergoeding, niet de
+klantverkoopprijs of interne berekeningen.
+10. Beheerdersdashboard
+• Boekingenlijst met zoeken, filters, datum, land, betalingsstatus en ritstatus.
+• Detailweergave met afzonderlijke ritdelen, wijzigingen, berichten en auditlog.
+• Vervoerder toewijzen, opdracht voorbereiden, acceptatie registreren en rit afronden.
+• Aanvragen handmatig beoordelen, prijzen aanpassen met vastlegging, annuleringen en refunds
+goedkeuren.
+• Beheer van verkoopprijzen, voertuigcapaciteiten, vervoerders en operationele instellingen.
+• Actielijst: open aanvragen, wacht op betaling, wacht op acceptatie, contactgegevens nog te delen,
+no-show ter beoordeling.
+Bewaar betalingsstatus en ritstatus onafhankelijk van elkaar. Een betaald ritdeel is niet automatisch
+door een vervoerder geaccepteerd.
+TRANSFERBRIDGE | Technische specificatie | Extern deelbaar Pagina 3
+=== PAGE 4 ===
+11. Minimale statuslogica
+Boeking/rit: Nieuw → Beschikbaarheid controleren → Vervoerder toegewezen → Opdracht verzonden →
+Geaccepteerd → Contactgegevens gedeeld → Uitgevoerd. Alternatieve statussen: Geannuleerd,
+No-show aangevraagd, No-show goedgekeurd. Betaling: Niet betaald, Betaallink verzonden, Betaald,
+Refund in behandeling, (Deels) terugbetaald, Verlopen/mislukt.
+12. Technische en beveiligingseisen
+• Beveiligde admin-login, HTTPS, rolgebaseerde toegang indien meerdere medewerkers worden
+toegevoegd.
+• AVG-conforme gegevensverwerking: privacyverklaring, bewaartermijnen, passende beveiliging en
+minimale gegevensdeling.
+• Server-side validatie van prijzen, toeslagen en betaalstatus; voorkom manipulatie via de browser.
+• Correcte verwerking van tijdzones Nederland/Suriname, zomer- en wintertijd en vluchten over
+datumgrenzen.
+• Back-ups, foutmeldingen/logging, herstelmogelijkheid en documentatie van beheerfuncties.
+• Duidelijk aangeven welke externe abonnementen/API-kosten nodig zijn en welke diensten door de
+opdrachtgever worden beheerd.
+13. Vragen aan de websitebouwer
+• Welke techniek, CMS en boekingsoplossing stelt u voor, en waarom?
+• Kan uw oplossing één boeking met meerdere afzonderlijk te beheren ritdelen verwerken?
+• Welke onderdelen zijn maatwerk en welke worden met bestaande plugins gerealiseerd?
+• Kunnen wij zelf tarieven, bagageregels, capaciteit, vervoerders en berichten wijzigen?
+• Hoe wordt Mollie geïntegreerd, inclusief webhooks, verlopen betaallinks en gedeeltelijke
+terugbetalingen?
+• Hoe worden WhatsApp en e-mail ingezet: handmatig, via klikbare berichten of via betaalde API?
+• Hoe worden persoonsgegevens beveiligd en hoe zijn beheerrechten, back-ups en onderhoud
+geregeld?
+• Wat valt precies binnen de oplevering en wat zijn de kosten van hosting, licenties, plugins en
+onderhoud?
+• Wie wordt eigenaar van domein, hostingaccount, broncode, databank, ontwerp en beheeraccounts?
+• Welke planning, testperiode, nazorg en hersteltermijn voor fouten worden aangeboden?
+14. Oplevering en acceptatietesten
+• Boek een enkele Nederlandse rit, een Surinaamse rit en een gecombineerde retourboeking met vier
+ritdelen.
+• Controleer automatische voertuigkeuze op basis van passagiers en koffers en de
+handmatige-aanvraagroute bij onbekend tarief.
+• Controleer spoedaanvraag onder 12 uur, Nederlandse toeslag, handmatige goedkeuring en 30
+minuten betaallink.
+• Controleer succesvolle, mislukte en verlopen betalingen; voorkom dubbele bevestigingen.
+• Test afzonderlijk annuleren/wijzigen van één ritdeel en berekening van terugbetaling.
+• Controleer rittoewijzing, acceptatie, contactgegevensvrijgave en no-showgoedkeuring.
+TRANSFERBRIDGE | Technische specificatie | Extern deelbaar Pagina 4
+=== PAGE 5 ===
+• Test mobiele weergave, formulierfouten, Nederlandse en Surinaamse tijdzones en
+beheerdersrechten.
+• Lever beheerinstructies, alle accounttoegangen, back-upafspraken en overzicht van terugkerende
+kosten op.
+15. Open configuratiepunten vóór livegang
+Definitieve Surinaamse verkoopprijzen en bagage-/bustarieven; exacte voertuigcapaciteiten;
+Surinaamse spoedtoeslag; wachttijd- en no-showregels voor overige locaties; goedgekeurde
+voorwaarden en privacyverklaring; Mollie-acceptatie van de verkoopconstructie; definitieve
+contactkanalen en domein. Deze punten mogen het ontwerpen en ontwikkelen van configureerbare
+onderdelen niet blokkeren, maar moeten vóór productiegebruik zijn ingevuld en getest.
+Opmerking: dit document is bedoeld voor technische offerte en bouwafstemming. Het bevat bewust
+geen vertrouwelijke inkoopafspraken, winstmarges, leverancierscontracten of strategische
+bedrijfsplannen.
+TRANSFERBRIDGE | Technische specificatie | Extern deelbaar Pagina 5
+
